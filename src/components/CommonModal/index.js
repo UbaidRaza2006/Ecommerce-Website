@@ -6,7 +6,7 @@ import { Fragment } from "react"
 
 
 
-export default function CommonModal({ modalTitle, mainContent, showButtons, buttonComponent, show, setShow }) {
+export default function CommonModal({ modalTitle, mainContent, showButtons, buttonComponent, show, setShow , showModalTitle}) {
     return (
 
         <Transition.Root show={show} as={Fragment}>
@@ -43,10 +43,12 @@ export default function CommonModal({ modalTitle, mainContent, showButtons, butt
                                 <Dialog.Panel className={"w-screen max-w-md"}>
                                     <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                                         <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-                                            <div className="flex items-start justify-between">
+                                            {
+                                                showModalTitle? <div className="flex items-start justify-between">
                                                 <Dialog.Title>{modalTitle}</Dialog.Title>
-                                            </div>
-                                            <div className="mt-8">
+                                            </div>:null
+                                            }
+                                            <div className="mt-20">
                                                 {mainContent}
                                             </div>
                                         </div>

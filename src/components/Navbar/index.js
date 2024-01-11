@@ -1,6 +1,6 @@
 'use client'
 
-// import { adminNavOptions, navOptions, styles } from "@/utils";
+import { adminNavOptions, navOptions, styles } from "@/utils";
 // import GlobalState from '@/context'
 // import GlobalContext from '@/context'
 // import { showNavModal, setShowNavModal } from '@/context'
@@ -23,17 +23,17 @@ import CommonModal from '../CommonModal';
 
 
 const isAdminView = false
-const isAuthUser = false
+const isAuthUser = true
 const user = {
     role: "admin",
 };
 
 
-function NavItems() {
+function NavItems({ isModalView = false }) {
     return (
-        <div className="items-center justify-between w-full md:flex md:w-auto" id="nav-items">
+        <div className={`items-center justify-between w-full md:flex md:w-auto ${isModalView ? "" : "hidden"}`} id="nav-items">
 
-            <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 bg-white">
+            <ul className={`flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 bg-white ${isModalView ? "border-none" : "border border-gray-100 "}`}>
 
                 {
                     isAdminView ? adminNavOptions.map(item => <li className="cursor-pointer block py-2 pl-3 pr-4 text-gray-900 rounded md:p-0" key={item.id}>{item.label}</li>) :
@@ -94,7 +94,7 @@ export default function Navbar() {
                         <button
                             data-collapse-toggle="navbar-sticky"
                             type="button"
-                            className="inline-flex  p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-200 focus:outline-none focus:ring-2 w-[3em]"
+                            className="inline-flex border border-gray-400 p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-200 focus:outline-none focus:ring-2 w-[3em]"
                             aria-controls="navbar-sticky"
                             aria-expanded="false"
                             onClick={() => setShowNavModal(true)}
@@ -145,11 +145,11 @@ export default function Navbar() {
     </button> */}
 
                     </div>
-                    <NavItems />
+                    <NavItems isModal={false} />
                 </div>
 
             </nav>
-            <CommonModal show={showNavModal} setShow={setShowNavModal} />
+            <CommonModal showModalTitle={false} mainContent={<NavItems isModalView={true} />} show={showNavModal} setShow={setShowNavModal} />
         </>
     )
 
