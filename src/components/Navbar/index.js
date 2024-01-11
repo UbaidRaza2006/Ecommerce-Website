@@ -57,7 +57,7 @@ export default function Navbar() {
 
             <nav className="bg-white fixed w-full z-20 top-0 left-0 border-b border-gray-200">
 
-                <div className="max-w-screen-x1 flex flex-wrap items-center justify-between mx-auto p-4">
+                <div className="max-w-screen-x1 flex flex-wrap items-center justify-between mx-auto p-4 ">
 
 
                     <div className="flex items-center cursor-pointer">
