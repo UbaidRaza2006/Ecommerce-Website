@@ -4,11 +4,16 @@ import InputComponent from "@/components/FormElements/InputComponent"
 import SelectComponent from "@/components/FormElements/SelectComponent"
 
 import { loginFormControls } from "@/utils"
+import { useRouter } from "next/navigation"
 
 
 
 
 export default function Login(){
+
+const router= useRouter()
+
+
     return(<div className=" bg-white relative">
 
     <div className="flex flex-col justify-between items-center pt-0 pr-10 pb-0 pl-10 mt-8 mr-auto xl:px-5 lg:flex-row">
@@ -38,7 +43,9 @@ export default function Login(){
                                     <button className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tarcking-wide">Login</button>
                                     <div className="flex flex-col gap-2">
                                         <p>New to Website?</p>
-                                        <button className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tarcking-wide">Register</button>
+                                        <button className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tarcking-wide"
+                                        onClick={()=> router.push("/register")}
+                                        >Register</button>
                                     </div>
                                 </div>
 
