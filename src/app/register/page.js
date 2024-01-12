@@ -1,14 +1,15 @@
 'use client'
 
 import InputComponent from "@/components/FormElements/InputComponent"
-import Selectcomponent from "@/components/FormElements/SelectComponent"
+import SelectComponent from "@/components/FormElements/SelectComponent"
 import { registrationFormControls } from "@/utils"
 
 const isRegistered = false
 
 
 export default function Register() {
-    return (<div className=" bg-white relative">
+    return (
+    <div className=" bg-white relative">
 
         <div className="flex flex-col justify-between items-center pt-0 pr-10 pb-0 pl-10 mt-8 mr-auto xl:px-5 lg:flex-row">
             <div className="flex flex-col justify-center w-full items-center pr-10 pl-10 lg:flex-row">
@@ -22,23 +23,23 @@ export default function Register() {
                         </p>
                         {
                             isRegistered ?
-                                (<button className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tarcking-wide">Login</button> ):(
+                                (<button className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tarcking-wide">Login</button>) : (
                                     <div className="relative space-y-8 w-full mt-6 mr-0 mb-0 ml-0">
                                         {
-                                            registrationFormControls.map((controlItem)=>controlItem.componentType=== "input"?(
+                                            registrationFormControls.map((controlItem) => controlItem.componentType === "input" ? (
                                                 <InputComponent
-                                                type={controlItem.type}
-                                                label={controlItem.label}
-                                                placeholder={controlItem.placeholder}
+                                                    type={controlItem.type}
+                                                    label={controlItem.label}
+                                                    placeholder={controlItem.placeholder}
                                                 />
-                                            )
-                                            : controlItem.componentType === "select"?(
-                                                <Selectcomponent
-                                                options={controlItem.options}
-                                                label={controlItem.label}/>
-                                            ):null
+                                            ) : controlItem.componentType === "select" ? (
+                                                <SelectComponent
+                                                    options={controlItem.options}
+                                                    label={controlItem.label} />
+                                            ) : null
                                             )
                                         }
+                                        <button className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tarcking-wide">Register</button>
                                     </div>
                                 )
                         }

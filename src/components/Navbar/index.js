@@ -72,8 +72,8 @@ export default function Navbar() {
                         {
                             !isAdminView && isAuthUser ? (
                                 <Fragment>
-                                    <button className={styles.button}>Account</button>
-                                    <button className={styles.button}>Cart</button>
+                                    <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white">Account</button>
+                                    <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white">Cart</button>
                                 </Fragment>
 
                             ) : null
@@ -82,13 +82,13 @@ export default function Navbar() {
                         {
                             user?.role === "admin" ? (
                                 isAdminView ?
-                                    (<button className={styles.button}>Client View</button>) :
-                                    (<button className={styles.button}>Admin View</button>)
+                                    (<button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white">Client View</button>) :
+                                    (<button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white">Admin View</button>)
                             ) : null
                         }
 
                         {
-                            isAuthUser ? <button className={styles.button}>Logout</button> : <button className={styles.button}>Login</button>
+                            isAuthUser ? <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white">Logout</button> : <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white">Login</button>
                         }
 
                         <button
