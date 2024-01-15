@@ -7,7 +7,7 @@ import { hash } from "bcrypt"; // Correct import statement
 
 
 
-
+export const dynamic= "force-dynamic"
 
 
 const schema = Joi.object({

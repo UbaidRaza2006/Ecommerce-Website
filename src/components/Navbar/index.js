@@ -1,6 +1,7 @@
 'use client'
 
 import { adminNavOptions, navOptions, styles } from "@/utils";
+import { useRouter } from "next/navigation"
 // import GlobalState from '@/context'
 // import GlobalContext from '@/context'
 // import { showNavModal, setShowNavModal } from '@/context'
@@ -10,6 +11,7 @@ import { adminNavOptions, navOptions, styles } from "@/utils";
 
 // Import statements for useContext and GlobalContext
 import { useContext } from 'react';
+import Cookies from "js-cookie"
 // Importing GlobalContext with curly braces
 import { GlobalContext } from '@/context';
 
@@ -23,10 +25,8 @@ import CommonModal from '../CommonModal';
 
 
 const isAdminView = false
-const isAuthUser = true
-const user = {
-    role: "admin",
-};
+
+
 
 
 function NavItems({ isModalView = false }) {
@@ -51,6 +51,20 @@ function NavItems({ isModalView = false }) {
 export default function Navbar() {
 
     const { showNavModal, setShowNavModal } = useContext(GlobalContext)
+    const {isAuthUser,user,setIsAuthUser,setUser}= useContext(GlobalContext)
+
+    const router= useRouter()
+
+console.log(user, isAuthUser, 'navbar');
+
+function handleLogout(){
+setIsAuthUser(false);
+setUser(null);
+Cookies.remove('token');
+localStorage.clear();
+router.push("/")
+    
+}
 
     return (
         <>
@@ -88,7 +102,7 @@ export default function Navbar() {
                         }
 
                         {
-                            isAuthUser ? <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white">Logout</button> : <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white">Login</button>
+                            isAuthUser ? <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white" onClick={handleLogout}>Logout</button> : <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white">Login</button>
                         }
 
                         <button
