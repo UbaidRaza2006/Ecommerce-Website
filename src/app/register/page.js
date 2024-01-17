@@ -4,6 +4,7 @@ import InputComponent from "@/components/FormElements/InputComponent"
 import SelectComponent from "@/components/FormElements/SelectComponent"
 import { registerNewUser } from "@/services/register"
 import { registrationFormControls } from "@/utils"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 const isRegistered = false
@@ -18,6 +19,7 @@ const initialFormData = {
 export default function Register() {
 
     const [formData, setFormData] = useState(initialFormData)
+    const router = useRouter()
 
      console.log("formData-->",formData);
 
@@ -29,6 +31,9 @@ async function handleRegisterOnSubmit(){
 
     const data= await registerNewUser(formData)
     console.log(data);
+    if(data.success){
+        router.push("/login")
+    }
     
 } 
 

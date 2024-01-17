@@ -65,6 +65,9 @@ localStorage.clear();
 router.push("/")
     
 }
+function router1(){
+    router.push("/login")
+}
 
     return (
         <>
@@ -102,7 +105,7 @@ router.push("/")
                         }
 
                         {
-                            isAuthUser ? <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white" onClick={handleLogout}>Logout</button> : <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white">Login</button>
+                            isAuthUser ? <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white" onClick={handleLogout}>Logout</button> : <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white" onClick={router1}>Login</button>
                         }
 
                         <button
