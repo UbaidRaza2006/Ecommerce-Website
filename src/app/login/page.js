@@ -9,6 +9,9 @@ import { loginFormControls } from "@/utils"
 import { useRouter } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
 import Cookies from 'js-cookie';
+import ComponentLevelLoader from "@/components/Loader/componentlevel"
+import { toast } from "react-toastify"
+import Notification from "@/components/Notification"
 
 
 
@@ -22,7 +25,7 @@ export default function Login() {
 
     const [formData, setFormData] = useState(initialFormdata)
 
-    const{user, setUser, isAuthUser, setIsAuthUser}=useContext(GlobalContext)
+    const{user, setUser, isAuthUser, setIsAuthUser,componentLevelLoader, setComponentLevelLoader}=useContext(GlobalContext)
 
     const router = useRouter()
 
@@ -34,18 +37,27 @@ export default function Login() {
     }
 
     async function handleLogin(){
-
+setComponentLevelLoader({loading:true, id:''})
         const res = await login(formData)
         console.log(res);
 
         if(res.success){
+            toast.success(res.message,{
+              position:  toast.POSITION.TOP_RIGHT,
+            })
+setComponentLevelLoader({loading:false, id:''})
 setIsAuthUser(true);
 setUser(res?.finalData?.user);
 setFormData(initialFormdata);
 Cookies.set("token",res?.finalData?.token);
 localStorage.setItem("user",JSON.stringify(res?.finalData?.user))
         }else{
+            toast.error(res.message,{
+                position:  toast.POSITION.TOP_RIGHT,
+              })
             setIsAuthUser(false)
+setComponentLevelLoader({loading:false, id:''})
+
         }
     } 
 
@@ -95,7 +107,15 @@ localStorage.setItem("user",JSON.stringify(res?.finalData?.user))
                                 disabled={!isFormValid()}
                                 onClick={handleLogin}
                             >
-                                Login
+
+{
+    componentLevelLoader && componentLevelLoader.loading ? <ComponentLevelLoader
+    text={"Logging In"}
+    color={"#ffffff"}
+    loading={componentLevelLoader && componentLevelLoader.loading}/> : 'Login'
+}
+
+                                
                             </button>
                             
                             
@@ -113,6 +133,6 @@ localStorage.setItem("user",JSON.stringify(res?.finalData?.user))
                 </div>
             </div>
         </div>
-
+<Notification/>
     </div>)
 }

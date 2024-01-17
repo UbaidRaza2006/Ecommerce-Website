@@ -2,10 +2,11 @@
 
 import InputComponent from "@/components/FormElements/InputComponent"
 import SelectComponent from "@/components/FormElements/SelectComponent"
+import { GlobalContext } from "@/context"
 import { registerNewUser } from "@/services/register"
 import { registrationFormControls } from "@/utils"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 
 const isRegistered = false
 
@@ -19,6 +20,9 @@ const initialFormData = {
 export default function Register() {
 
     const [formData, setFormData] = useState(initialFormData)
+
+    const{isAuthUser}=useContext(GlobalContext)
+
     const router = useRouter()
 
      console.log("formData-->",formData);
@@ -36,6 +40,11 @@ async function handleRegisterOnSubmit(){
     }
     
 } 
+useEffect(()=>{
+    if(isAuthUser){
+        router.push("/")
+    }
+},[isAuthUser])
 
 
 

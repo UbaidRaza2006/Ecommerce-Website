@@ -1,42 +1,42 @@
 'use client'
 
 import { adminNavOptions, navOptions, styles } from "@/utils";
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 // import GlobalState from '@/context'
 // import GlobalContext from '@/context'
 // import { showNavModal, setShowNavModal } from '@/context'
 // import { Fragment, useContext } from "react"
-// import CommonModal from "../CommonModal";
+// import pageLevelModal from "../pageLevelModal";
 
 
 // Import statements for useContext and GlobalContext
 import { useContext } from 'react';
+import CommonModal from "../CommonModal";
 import Cookies from "js-cookie"
 // Importing GlobalContext with curly braces
 import { GlobalContext } from '@/context';
 
+
 // Other import statements remain unchanged
 import { showNavModal, setShowNavModal } from '@/context';
 import { Fragment } from 'react';
-import CommonModal from '../CommonModal';
 
 // Rest of your code...
 
 
 
-const isAdminView = false
 
 
 
 
-function NavItems({ isModalView = false }) {
+function NavItems({ isModalView = false ,isAdminView,router}) {
     return (
         <div className={`items-center justify-between w-full md:flex md:w-auto ${isModalView ? "" : "hidden"}`} id="nav-items">
 
             <ul className={`flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 bg-white ${isModalView ? "border-none" : "border border-gray-100 "}`}>
 
                 {
-                    isAdminView ? adminNavOptions.map(item => <li className="cursor-pointer block py-2 pl-3 pr-4 text-gray-900 rounded md:p-0" key={item.id}>{item.label}</li>) :
+                    isAdminView ? adminNavOptions.map(item => <li className="cursor-pointer block py-2 pl-3 pr-4 text-gray-900 rounded md:p-0" onClick={()=>router.push(item.path)} key={item.id}>{item.label}</li>) :
 
                         navOptions.map(item => <li className="cursor-pointer block py-2 pl-3 pr-4 text-gray-900 rounded md:p-0" key={item.id}>{item.label}</li>)
                 }
@@ -53,7 +53,10 @@ export default function Navbar() {
     const { showNavModal, setShowNavModal } = useContext(GlobalContext)
     const {isAuthUser,user,setIsAuthUser,setUser}= useContext(GlobalContext)
 
+    const pathName= usePathname()
+
     const router= useRouter()
+    console.log(pathName);
 
 console.log(user, isAuthUser, 'navbar');
 
@@ -65,9 +68,9 @@ localStorage.clear();
 router.push("/")
     
 }
-function router1(){
-    router.push("/login")
-}
+
+const isAdminView=pathName.includes('admin-view')
+
 
     return (
         <>
@@ -99,13 +102,14 @@ function router1(){
                         {
                             user?.role === "admin" ? (
                                 isAdminView ?
-                                    (<button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white">Client View</button>) :
-                                    (<button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white">Admin View</button>)
+                                    (<button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white" onClick={()=>{router.push("/")}}>Client View</button>) :
+                                    (<button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white" onClick={()=>{router.push("/admin-view")}}>Admin View</button>)
                             ) : null
                         }
 
                         {
-                            isAuthUser ? <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white" onClick={handleLogout}>Logout</button> : <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white" onClick={router1}>Login</button>
+                            isAuthUser ? <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white" onClick={handleLogout}>Logout</button> : <button className="bg-black mt-1.5 inline-block px-5 py-3 text-xs font-medium upprcase tracking-wide text-white" onClick= {()=> router.push("/login")}  
+                            >Login</button>
                         }
 
                         <button
@@ -162,11 +166,11 @@ function router1(){
     </button> */}
 
                     </div>
-                    <NavItems isModal={false} />
+                    <NavItems router={router} isModal={false} isAdminView={isAdminView}/>
                 </div>
 
             </nav>
-            <CommonModal showModalTitle={false} mainContent={<NavItems isModalView={true} />} show={showNavModal} setShow={setShowNavModal} />
+            <CommonModal isAdminView={isAdminView} showModalTitle={false} mainContent={<NavItems isModalView={true} router={router} />} show={showNavModal} setShow={setShowNavModal} />
         </>
     )
 
