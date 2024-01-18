@@ -93,7 +93,7 @@ export default function adminAddNewProduct() {
         let cpySizes = [...formData.sizes]
         const index = cpySizes.findIndex((item) => item.id === getCurrentItem.id)
 
-        if (index === '-1') {
+        if (index === -1) {
             cpySizes.push(getCurrentItem)
         } 
         else {
