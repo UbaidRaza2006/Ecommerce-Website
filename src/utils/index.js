@@ -195,5 +195,16 @@ export const adminAddProductformControls = [
     },
   ];
 
+  export const firebaseConfig = {
+    apiKey: "AIzaSyDCPllu-8dmpxucWfpTiOmgyRh7RZTnVAk",
+    authDomain: "ecommerce-website-nextjs-ca63b.firebaseapp.com",
+    projectId: "ecommerce-website-nextjs-ca63b",
+    storageBucket: "ecommerce-website-nextjs-ca63b.appspot.com",
+    messagingSenderId: "370415229303",
+    appId: "1:370415229303:web:f8cb3e10ca1910b1e7e972",
+    measurementId: "G-EE0VYZCD6J"
+  };
+
+export const firebaseStorageURL= 'gs://ecommerce-website-nextjs-ca63b.appspot.com'
 
 // pagelevelloader not done
